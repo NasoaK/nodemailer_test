@@ -6,6 +6,7 @@ const port = process.env.PORT || 5000;
 //Middleware
 
 app.use(express.static('public'));
+
 app.use(express.json());
 
 app.get('/', (req, res)=>{
@@ -27,8 +28,13 @@ app.post('/',(req,res)=>{
         to: 'mikael.kombia@gmail.com',
         subject: `Message from ${req.body.email} : ${req.body.subject}`,
         text: req.body.message,
-        html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br /><img src="cid:uniq-mailtrap.jpeg" alt="mailtrap" />',
- 
+        html: '<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>  <img src="cid:mailtrap" alt="Photos from Max Ravier @pexels" style="width:100vw; height:100vh; object-fit:cover"/>',
+        attachments: [
+            {   filename: "mailtrap.png",
+                path:"mail.jpg",
+              cid: 'mailtrap'
+            }
+          ]
     }
 
     transporter.sendMail(mailOption, (error, info)=>{
